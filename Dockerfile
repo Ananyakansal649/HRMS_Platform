@@ -24,7 +24,7 @@ COPY data/raw/ ./data/raw/
 COPY data/processed/ ./data/processed/
 COPY models/ ./models/
 COPY docs/ ./docs/
-COPY notebooks/index.html ./notebooks/index.html
+# COPY notebooks/index.html ./notebooks/index.html
 
 # Create directories for runtime data
 RUN mkdir -p data/monitoring data/predictions
