@@ -1,0 +1,25 @@
+{
+  "status": "ok",
+  "total_predictions": 124,
+  "reference_window": {
+    "hours": 24,
+    "count": 124,
+    "mean_probability": 0.1938,
+    "std_probability": 0.3949,
+    "positive_rate": 0.1935
+  },
+  "current_window": {
+    "hours": 1,
+    "count": 40,
+    "mean_probability": 0.2002,
+    "std_probability": 0.3998,
+    "positive_rate": 0.2
+  },
+  "alerts": [
+    {
+      "type": "none",
+      "message": "No drift detected",
+      "severity": "info"
+    }
+  ]
+}

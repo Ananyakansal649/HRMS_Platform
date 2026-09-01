@@ -1,0 +1,53 @@
+# Enterprise HR AI — Docker Ignore
+# Exclude files that shouldn't be in the Docker image
+
+# Version control
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.eggs
+*.egg
+dist/
+build/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+tests/
+
+# Documentation source
+docs/*.html
+
+# Notebook HTML outputs (large, not needed in container)
+notebooks/*.html
+
+# Monitoring data (ephemeral)
+data/monitoring/
+
+# Freebuff
+.freebuff/
+
+# Temporary files
+*.log
+*.tmp
+verify_day*.py
+generate_*.py
+fix_*.py
+
+# Node
+node_modules/

@@ -1,0 +1,28 @@
+{
+  "Age": {
+    "mean": 36.92,
+    "std": 9.14,
+    "min": 18,
+    "max": 60
+  },
+  "MonthlyIncome": {
+    "mean": 6502.93,
+    "std": 4707.96,
+    "min": 1009,
+    "max": 19999
+  },
+  "YearsAtCompany": {
+    "mean": 7.01,
+    "std": 6.13,
+    "min": 0,
+    "max": 40
+  },
+  "JobSatisfaction": {
+    "mean": 2.73,
+    "std": 1.1,
+    "min": 1,
+    "max": 4
+  },
+  "OverTime_rate": 0.283,
+  "n_training_samples": 1470
+}

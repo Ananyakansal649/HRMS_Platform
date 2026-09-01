@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise HR AI - Project Notebooks</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 2rem; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #f8fafc; }
+        .subtitle { color: #94a3b8; margin-bottom: 2rem; font-size: 1.1rem; }
+        .section { margin-bottom: 2rem; }
+        .section-title { font-size: 1.3rem; font-weight: 700; color: #60a5fa; margin-bottom: 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; text-decoration: none; color: inherit; display: block; transition: border-color 0.2s, transform 0.2s; }
+        .card:hover { border-color: #60a5fa; transform: translateY(-2px); }
+        .card-num { color: #60a5fa; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+        .card-title { font-size: 1.25rem; font-weight: 600; color: #f8fafc; margin-bottom: 0.5rem; }
+        .card-desc { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; }
+        .badge { display: inline-block; background: #1e3a5f; color: #60a5fa; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 999px; margin-top: 0.75rem; font-weight: 500; }
+        .badge-green { background: #14532d; color: #4ade80; }
+        .footer { text-align: center; color: #475569; margin-top: 2rem; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enterprise HR AI</h1>
+        <p class="subtitle">Workforce Intelligence &amp; Upskilling Platform — All Notebooks</p>
+
+        <div class="section">
+            <div class="section-title">Day 1 — Data Foundation</div>
+
+            <a class="card" href="01_data_understanding.html">
+                <div class="card-num">Notebook 01</div>
+                <div class="card-title">Data Understanding</div>
+                <div class="card-desc">Load and inspect all 5 raw CSV datasets. Shape, columns, types, missing values, duplicates, ID columns, attrition target distribution.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+
+            <a class="card" href="02_data_validation.html">
+                <div class="card-num">Notebook 02</div>
+                <div class="card-title">Data Validation</div>
+                <div class="card-desc">Schema checks, type validation, range validation (Age 18–100), EmployeeNumber uniqueness, Attrition category validation.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+
+            <a class="card" href="03_data_cleaning.html">
+                <div class="card-num">Notebook 03</div>
+                <div class="card-title">Data Cleaning</div>
+                <div class="card-desc">Drop constant columns, normalize categories, handle missing values, clean skill names. Outputs saved to data/processed/.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+
+            <a class="card" href="04_data_relationships.html">
+                <div class="card-num">Notebook 04</div>
+                <div class="card-title">Data Relationships</div>
+                <div class="card-desc">Verify join keys between all dataset pairs. Confirm O*NET links, check EmployeeNumber overlap, employee skills gap finding.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Day 2 — ML Phase</div>
+
+            <a class="card" href="05_feature_engineering.html">
+                <div class="card-num">Notebook 05</div>
+                <div class="card-title">Feature Engineering</div>
+                <div class="card-desc">Encode categoricals, engineer derived features (income_per_year, satisfaction_score), remove data leakage columns. 44 features total.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+
+            <a class="card" href="06_baseline_model.html">
+                <div class="card-num">Notebook 06</div>
+                <div class="card-title">Baseline Model</div>
+                <div class="card-desc">Logistic Regression baseline with 80/20 stratified split. Accuracy, Precision, Recall, F1, ROC-AUC evaluation.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+
+            <a class="card" href="07_model_comparison.html">
+                <div class="card-num">Notebook 07</div>
+                <div class="card-title">Model Comparison</div>
+                <div class="card-desc">Compare Logistic Regression vs Random Forest vs XGBoost. ROC curves, confusion matrices, metric comparison table.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+
+            <a class="card" href="08_model_explainability.html">
+                <div class="card-num">Notebook 08</div>
+                <div class="card-title">Model Explainability (SHAP)</div>
+                <div class="card-desc">SHAP global summary + feature importance bar chart. Local explanations for individual predictions.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+
+            <a class="card" href="09_model_versioning.html">
+                <div class="card-num">Notebook 09</div>
+                <div class="card-title">Model Versioning</div>
+                <div class="card-desc">Save winning XGBoost model with metadata. Versioned copy in models/v1/ with full training provenance.</div>
+                <span class="badge badge-green">Executed with outputs</span>
+            </a>
+        </div>
+
+        <div class="footer">Enterprise HR AI — Workforce Intelligence &amp; Upskilling Platform</div>
+    </div>
+</body>
+</html>
