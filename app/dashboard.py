@@ -3,6 +3,7 @@ Enterprise HR AI — Streamlit Dashboard
 AI Workforce Intelligence Platform (spec task 23).
 
 Professional enterprise-grade UI with modern SaaS design.
+Fully theme-aware: works in Light, Dark, and System modes.
 """
 import streamlit as st
 import pandas as pd
@@ -32,289 +33,191 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------------------------
-# Professional CSS — Enterprise SaaS theme
+# Professional CSS — Enterprise SaaS theme (fully theme-aware)
 # ---------------------------------------------------------------------------
 st.markdown("""
 <style>
 /* ── Global ────────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-:root {
-    --primary: #2563eb;
-    --primary-light: #3b82f6;
-    --primary-dark: #1d4ed8;
-    --accent: #0ea5e9;
-    --success: #10b981;
-    --success-bg: #ecfdf5;
-    --warning: #f59e0b;
-    --warning-bg: #fffbeb;
-    --danger: #ef4444;
-    --danger-bg: #fef2f2;
-    --surface: #ffffff;
-    --surface-alt: #f8fafc;
-    --border: #e2e8f0;
-    --text: #1e293b;
-    --text-muted: #64748b;
-    --text-light: #94a3b8;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
-    --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
-    --shadow-md: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
-    --radius: 12px;
-    --radius-sm: 8px;
-}
-
 .stApp {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ── Sidebar ───────────────────────────────────────────────────────────── */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-}
-section[data-testid="stSidebar"] .stRadio > div > label {
-    color: #cbd5e1 !important;
-    padding: 8px 12px;
-    border-radius: var(--radius-sm);
-    transition: all 0.15s;
-    margin-bottom: 2px;
-}
-section[data-testid="stSidebar"] .stRadio > div > label:hover {
-    background: rgba(255,255,255,.08);
-}
-section[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"] {
-    background: rgba(37,99,235,.25);
-    color: #ffffff !important;
-    font-weight: 500;
-}
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] h2,
-section[data-testid="stSidebar"] h3 {
-    color: #ffffff !important;
-}
-
 /* ── KPI Cards ─────────────────────────────────────────────────────────── */
-.kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-}
 .kpi-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    background: var(--secondary-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     padding: 20px 24px;
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.2s;
-}
-.kpi-card:hover {
-    box-shadow: var(--shadow-md);
+    margin-bottom: 4px;
 }
 .kpi-label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-color);
+    opacity: 0.65;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     margin-bottom: 6px;
 }
 .kpi-value {
-    font-size: 1.75rem;
+    font-size: 1.7rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text-color);
     line-height: 1.2;
 }
 .kpi-delta {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 500;
     margin-top: 4px;
 }
-.kpi-delta.negative { color: var(--danger); }
-.kpi-delta.positive { color: var(--success); }
+.kpi-delta.negative { color: #ef4444; }
+.kpi-delta.positive { color: #10b981; }
 .kpi-icon {
-    font-size: 1.5rem;
-    margin-bottom: 8px;
+    font-size: 1.4rem;
+    margin-bottom: 6px;
 }
 
 /* ── Section Cards ─────────────────────────────────────────────────────── */
 .section-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 20px;
+    background: var(--secondary-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
 }
 .section-card h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    color: var(--text);
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
+    color: var(--text-color);
+    margin: 0 0 12px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 /* ── Risk Cards ────────────────────────────────────────────────────────── */
 .risk-card {
-    border-radius: var(--radius);
-    padding: 24px;
+    border-radius: 12px;
+    padding: 28px;
     text-align: center;
     margin-bottom: 20px;
 }
 .risk-low {
-    background: var(--success-bg);
+    background: #ecfdf5;
     border: 1px solid #a7f3d0;
 }
 .risk-medium {
-    background: var(--warning-bg);
+    background: #fffbeb;
     border: 1px solid #fde68a;
 }
 .risk-high {
-    background: var(--danger-bg);
+    background: #fef2f2;
     border: 1px solid #fecaca;
 }
 .risk-label {
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 .risk-low .risk-label { color: #059669; }
 .risk-medium .risk-label { color: #d97706; }
 .risk-high .risk-label { color: #dc2626; }
 .risk-value {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text-color);
 }
 .risk-detail {
     font-size: 0.85rem;
-    color: var(--text-muted);
+    color: var(--text-color);
+    opacity: 0.6;
     margin-top: 4px;
 }
 
 /* ── Metric Grid ───────────────────────────────────────────────────────── */
-.metric-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-}
 .metric-item {
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    background: var(--secondary-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
     padding: 16px;
     text-align: center;
+    margin-bottom: 4px;
 }
 .metric-item .label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-color);
+    opacity: 0.6;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     margin-bottom: 4px;
 }
 .metric-item .value {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text-color);
 }
 
 /* ── Recommendation Cards ──────────────────────────────────────────────── */
 .rec-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow-sm);
-}
-.rec-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-}
-.rec-badge {
-    display: inline-block;
-    background: #eff6ff;
-    color: #1d4ed8;
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 99px;
+    background: var(--secondary-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
 }
 
-/* ── Monitoring Status ─────────────────────────────────────────────────── */
-.status-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 6px;
-}
-.status-dot.green { background: var(--success); }
-.status-dot.yellow { background: var(--warning); }
-.status-dot.red { background: var(--danger); }
-
-/* ── Model Info ────────────────────────────────────────────────────────── */
+/* ── Model / Status Cards ──────────────────────────────────────────────── */
 .model-card {
-    background: var(--surface-alt);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    background: var(--secondary-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
     padding: 14px 18px;
     text-align: center;
+    margin-bottom: 4px;
 }
 .model-card .label {
     font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--text-muted);
+    font-weight: 600;
+    color: var(--text-color);
+    opacity: 0.6;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     margin-bottom: 4px;
 }
 .model-card .value {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text);
-}
-
-/* ── Expander styling ──────────────────────────────────────────────────── */
-.streamlit-expanderContent {
-    background: var(--surface-alt) !important;
-    border-radius: 0 0 var(--radius-sm) var(--radius-sm) !important;
-}
-
-/* ── Divider styling ───────────────────────────────────────────────────── */
-hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 1rem 0;
-}
-
-/* ── Subheader styling ─────────────────────────────────────────────────── */
-h3.section-header {
     font-size: 1.05rem;
     font-weight: 600;
-    color: var(--text);
-    margin-bottom: 12px;
+    color: var(--text-color);
 }
 
-/* ── Page title ────────────────────────────────────────────────────────── */
-.page-header {
-    margin-bottom: 8px;
+/* ── Status Dot ────────────────────────────────────────────────────────── */
+.status-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
 }
-.page-header h1 {
-    font-size: 1.6rem !important;
-    font-weight: 700 !important;
-    color: var(--text) !important;
-    margin-bottom: 4px !important;
+.status-dot.green { background: #10b981; }
+.status-dot.yellow { background: #f59e0b; }
+.status-dot.red { background: #ef4444; }
+
+/* ── Expander ──────────────────────────────────────────────────────────── */
+.streamlit-expanderContent {
+    background: var(--secondary-background-color) !important;
+    border-radius: 0 0 8px 8px !important;
 }
-.page-header p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin: 0;
+
+/* ── Divider ───────────────────────────────────────────────────────────── */
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 1rem 0;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -356,7 +259,7 @@ def safe_predict(data: dict) -> dict:
 # Helper: render KPI card
 # ===========================================================================
 def kpi_card(icon: str, label: str, value, delta: str = "", delta_positive: bool = True):
-    """Render a styled KPI card."""
+    """Render a themed KPI card."""
     delta_cls = "positive" if delta_positive else "negative"
     delta_html = f'<div class="kpi-delta {delta_cls}">{delta}</div>' if delta else ''
     st.markdown(f"""
@@ -370,27 +273,11 @@ def kpi_card(icon: str, label: str, value, delta: str = "", delta_positive: bool
 
 
 # ===========================================================================
-# Helper: section card wrapper
-# ===========================================================================
-def section_card(title: str):
-    """Create a section card container."""
-    st.markdown(f"""
-    <div class="section-card">
-        <h3>{title}</h3>
-    </div>
-    """, unsafe_allow_html=True)
-
-
-# ===========================================================================
 # Sidebar navigation
 # ===========================================================================
 with st.sidebar:
-    st.markdown("""
-    <div style="padding: 0 0 12px 0; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 12px;">
-        <div style="font-size: 1.15rem; font-weight: 700; color: #ffffff;">🏢 Enterprise HR AI</div>
-        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px;">AI Workforce Intelligence</div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("## 🏢 Enterprise HR AI")
+    st.caption("AI Workforce Intelligence")
 
     page = st.radio(
         "Navigate",
@@ -406,34 +293,26 @@ with st.sidebar:
         label_visibility="collapsed",
     )
 
-    # Model version info at bottom
-    st.markdown("""
-    <div style="position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; border-top: 1px solid rgba(255,255,255,.1);">
-    """, unsafe_allow_html=True)
+    st.divider()
 
+    # Model version info — uses st.markdown for theme-adaptive text
     model_algo = metadata.get("algorithm", "XGBoost")
     model_ver = metadata.get("version", "v1.0")
     st.markdown(f"""
-    <div style="font-size: 0.7rem; color: #64748b; line-height: 1.6;">
-        <div><span class="status-dot green"></span>System Online</div>
-        <div>Model: <strong style="color: #e2e8f0;">{model_algo} {model_ver}</strong></div>
-        <div>Features: <strong style="color: #e2e8f0;">{len(feature_names)}</strong></div>
+    <div style="font-size: 0.72rem; line-height: 1.7; opacity: 0.75;">
+        <span class="status-dot green"></span> System Online<br>
+        Model: <strong>{model_algo} {model_ver}</strong><br>
+        Features: <strong>{len(feature_names)}</strong>
     </div>
     """, unsafe_allow_html=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 # ===========================================================================
 # PAGE: Dashboard Overview
 # ===========================================================================
 if page == "🏠 Dashboard Overview":
-    st.markdown("""
-    <div class="page-header">
-        <h1>AI Workforce Intelligence Platform</h1>
-        <p>AI-driven workforce analytics and attrition prediction for enterprise HR.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("AI Workforce Intelligence Platform")
+    st.caption("AI-driven workforce analytics and attrition prediction for enterprise HR.")
 
     # ── Load data ──
     try:
@@ -500,12 +379,8 @@ if page == "🏠 Dashboard Overview":
 # PAGE: Attrition Prediction
 # ===========================================================================
 elif page == "👤 Attrition Prediction":
-    st.markdown("""
-    <div class="page-header">
-        <h1>Attrition Prediction</h1>
-        <p>Enter employee details to predict attrition risk using the trained XGBoost model.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("Attrition Prediction")
+    st.caption("Enter employee details to predict attrition risk using the trained XGBoost model.")
 
     # ── Input Sections ──
     left, right = st.columns(2)
@@ -635,12 +510,8 @@ elif page == "👤 Attrition Prediction":
 # PAGE: Engagement Analytics
 # ===========================================================================
 elif page == "📊 Engagement Analytics":
-    st.markdown("""
-    <div class="page-header">
-        <h1>Engagement Analytics</h1>
-        <p>Workforce engagement scores, departmental comparisons, and distribution analysis.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("Engagement Analytics")
+    st.caption("Workforce engagement scores, departmental comparisons, and distribution analysis.")
 
     try:
         df_eng = pd.read_csv(str(DATA_RAW / "hr_performance_engagement.csv"))
@@ -700,12 +571,8 @@ elif page == "📊 Engagement Analytics":
 elif page == "⚠️ Skill Gaps":
     from app.services.skill_gap_service import get_required_skills_by_role, get_organization_skill_gaps
 
-    st.markdown("""
-    <div class="page-header">
-        <h1>Critical Organisation Skill Gaps</h1>
-        <p>Identify skill gaps across roles and prioritise upskilling investments.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("Critical Organisation Skill Gaps")
+    st.caption("Identify skill gaps across roles and prioritise upskilling investments.")
 
     st.info(
         "Note: The raw datasets do not contain per-employee current skills. "
@@ -765,12 +632,8 @@ elif page == "🎯 Recommendations":
     from app.services.recommendation_service import generate_recommendations
     from app.services.skill_gap_service import get_required_skills_by_role
 
-    st.markdown("""
-    <div class="page-header">
-        <h1>AI Upskilling Recommendations</h1>
-        <p>Personalised training recommendations based on each employee's role skill gaps.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("AI Upskilling Recommendations")
+    st.caption("Personalised training recommendations based on each employee's role skill gaps.")
 
     role_skills = get_required_skills_by_role()
     df_attr = pd.read_csv(str(DATA_RAW / "employee_attrition.csv"))
@@ -805,7 +668,7 @@ elif page == "🎯 Recommendations":
                     for rec_text in rec["recommendations"]:
                         st.markdown(f"""
                         <div class="rec-card">
-                            <div style="font-size: 0.85rem; color: #1e293b;">
+                            <div style="font-size: 0.85rem; color: var(--text-color);">
                                 {rec_text}
                             </div>
                         </div>
@@ -816,12 +679,8 @@ elif page == "🎯 Recommendations":
 # PAGE: Model Info
 # ===========================================================================
 elif page == "🤖 Model Info":
-    st.markdown("""
-    <div class="page-header">
-        <h1>Model Information</h1>
-        <p>Details of the trained attrition prediction model.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("Model Information")
+    st.caption("Details of the trained attrition prediction model.")
 
     metrics = metadata.get("metrics", {})
 
@@ -914,12 +773,8 @@ elif page == "🤖 Model Info":
 elif page == "📈 Monitoring":
     from app.monitoring import load_predictions, compute_drift_stats, get_model_health
 
-    st.markdown("""
-    <div class="page-header">
-        <h1>Prediction Monitoring</h1>
-        <p>Live model health, drift detection, and recent prediction activity.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("Prediction Monitoring")
+    st.caption("Live model health, drift detection, and recent prediction activity.")
 
     try:
         health = get_model_health()
