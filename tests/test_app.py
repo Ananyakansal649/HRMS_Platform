@@ -288,6 +288,71 @@ class TestBatchPrediction:
 # ---------------------------------------------------------------------------
 # Test: Monitoring (Tasks 25-27)
 # ---------------------------------------------------------------------------
+class TestPredictAttrition:
+    """Test POST /predict/attrition endpoint (spec requirement)."""
+    def test_predict_attrition_returns_200(self, client, low_risk_employee):
+        r = client.post("/predict/attrition", json=low_risk_employee)
+        assert r.status_code == 200
+        data = r.json()
+        assert "attrition_probability" in data
+        assert data["prediction"] in ("Yes", "No")
+        assert data["risk_level"] in ("Low", "Medium", "High")
+
+    def test_predict_attrition_high_risk(self, client, high_risk_employee):
+        r = client.post("/predict/attrition", json=high_risk_employee)
+        assert r.status_code == 200
+        data = r.json()
+        assert data["risk_level"] == "High"
+        assert data["attrition_probability"] >= 0.7
+
+    def test_predict_attrition_invalid_input(self, client):
+        r = client.post("/predict/attrition", json={"Age": 5})
+        assert r.status_code == 422
+
+    def test_predict_attrition_returns_model_info(self, client, low_risk_employee):
+        r = client.post("/predict/attrition", json=low_risk_employee)
+        data = r.json()
+        assert "model_version" in data
+        assert "model_algorithm" in data
+
+
+class TestSkillsAPI:
+    """Test /skills/* endpoints."""
+    def test_list_roles(self, client):
+        r = client.get("/skills/roles")
+        assert r.status_code == 200
+        data = r.json()
+        assert "roles" in data
+        assert data["total_roles"] > 0
+
+    def test_role_skills(self, client):
+        r = client.get("/skills/roles/Accountants and Auditors")
+        assert r.status_code == 200
+        data = r.json()
+        assert "required_skills" in data
+        assert data["skill_count"] > 0
+
+    def test_role_not_found(self, client):
+        r = client.get("/skills/roles/Nonexistent Role")
+        assert r.status_code == 200  # Returns error info, not 404
+        data = r.json()
+        assert "error" in data
+
+    def test_organization_gaps(self, client):
+        r = client.get("/skills/organization-gaps")
+        assert r.status_code == 200
+        data = r.json()
+        assert isinstance(data, list)
+        assert len(data) > 0
+
+    def test_skill_recommendations(self, client):
+        r = client.get("/skills/recommendations?n=5")
+        assert r.status_code == 200
+        data = r.json()
+        assert "recommendations" in data
+        assert len(data["recommendations"]) <= 5
+
+
 class TestMonitoring:
     def test_feature_drift_endpoint(self, client):
         """Task 25: Feature drift endpoint returns training + production stats."""

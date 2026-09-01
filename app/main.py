@@ -42,6 +42,11 @@ from app.monitoring import (
 )
 from app.utils.logger import api_logger
 
+# API route modules
+from app.api.attrition import router as attrition_router
+from app.api.dashboard import router as dashboard_router
+from app.api.skills import router as skills_router
+
 
 # ---------------------------------------------------------------------------
 # Lifespan: load model once at startup
@@ -72,6 +77,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include API submodule routers
+# attrition_router adds: POST /predict/attrition
+# skills_router adds: GET /skills/roles, GET /skills/roles/{name}, etc.
+# dashboard_router is NOT included because routes already exist in main.py
+app.include_router(attrition_router)
+app.include_router(skills_router)
 
 
 # ---------------------------------------------------------------------------
